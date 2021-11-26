@@ -1,0 +1,14 @@
+name: pw
+version: 0.1.0
+
+description: A deterministic password generator.
+
+authors: ["Mathieu Ablasou <taupiqueur.kanto@gmail.com>"]
+
+crystal: 1.2.0
+
+license: MIT
+
+targets:
+  pw:
+    main: src/main.cr
