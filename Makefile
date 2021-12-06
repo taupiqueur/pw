@@ -16,7 +16,7 @@ build:
 test:
 	crystal spec
 
-release: build
+release: clean build
 	mkdir -p releases
 	tar caf releases/$(name)-$(version)-$(target).tar.xz bin/pw
 
