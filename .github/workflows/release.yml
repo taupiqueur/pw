@@ -73,8 +73,6 @@ jobs:
 
       - name: Build release (Windows)
         if: matrix.os == 'windows-latest'
-        env:
-          CRYSTAL_OPENSSL_VERSION: 3.0.0
         run: |
           shards build --release
           7z a releases/${{ matrix.archive }} bin/pw.exe
