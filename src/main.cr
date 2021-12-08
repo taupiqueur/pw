@@ -3,9 +3,7 @@ require "option_parser"
 
 require "./io/console"
 
-macro version
-  {{ `git describe --tags --always`.chomp.stringify }}
-end
+VERSION = {{ `git describe --tags --always`.chomp.stringify }}
 
 class Digest::SHA3_512 < OpenSSL::Digest
   extend ClassMethods
@@ -49,7 +47,7 @@ OptionParser.parse do |parser|
     exit
   end
   parser.on("-v", "--version", "Show version") do
-    puts version
+    puts VERSION
     exit
   end
   parser.missing_option do |flag|
