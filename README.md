@@ -33,7 +33,7 @@ Download the [Nightly builds].
 [Install Crystal] with [the shards command].
 
 [Install Crystal]: https://crystal-lang.org/install/
-[The shards command]: https://crystal-lang.org/reference/the_shards_command/
+[The shards command]: https://crystal-lang.org/reference/master/the_shards_command/
 
 ``` sh
 git clone https://github.com/taupiqueur/pw.git
