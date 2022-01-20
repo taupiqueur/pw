@@ -12,7 +12,7 @@ See [Usage] for examples.
 
 [Usage]: docs/manual.md#usage
 
-###### Features
+## Features
 
 - Simple method.
 - Avoids concepts and options when possible.
