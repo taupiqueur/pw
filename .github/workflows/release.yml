@@ -65,7 +65,7 @@ jobs:
 
       - name: Build release (Linux)
         if: matrix.os == 'ubuntu-latest'
-        run: scripts/docker-run make static=yes release name=pw version=nightly target=${{ matrix.target }}
+        run: sh scripts/docker-run.sh make static=yes release name=pw version=nightly target=${{ matrix.target }}
 
       - name: Build release (macOS)
         if: matrix.os == 'macos-latest'
