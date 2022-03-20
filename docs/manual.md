@@ -1,5 +1,17 @@
 # Manual
 
+## Name
+
+```
+pw - A deterministic password generator.
+```
+
+## Synopsis
+
+```
+pw [switches] [--] [arguments]
+```
+
 ## Usage
 
 If you don’t have a master password yet:
@@ -131,3 +143,63 @@ Depending on my situation here are the tools I use:
 - I use [Google Password Manager] and the **Suggest strong password** feature for passwords I want to be random.
 
 [Google Password Manager]: https://passwords.google.com
+
+## Options
+
+###### `-i`
+###### `--init`
+
+Generate a secure, random password.
+
+###### `-l <length>`
+###### `--length=<length>`
+
+Specifies the password length.
+
+###### `-a`
+###### `--alphanumeric-only`
+
+Remove non-alphanumeric characters.
+
+###### `-s`
+###### `--show`
+
+Show password.
+
+###### `-c`
+###### `--copy`
+
+Copy password.
+
+Attempt to set the terminal clipboard content using the [xterm escape sequence].
+
+[xterm escape sequence]: https://xfree86.org/current/ctlseqs.html#:~:text=clipboard
+
+###### `-`
+
+Read master password from **stdin**.
+
+###### `-r`
+###### `--rescue`
+
+Rescue mode.
+
+Print all password methods to date.
+
+###### `-h`
+###### `--help`
+
+Show this help.
+
+###### `-v`
+###### `--version`
+
+Show version.
+
+## Environment
+
+The following environment variables have an effect on `pw`.
+
+###### MASTER_PASSWORD
+
+Specifies the master password.
