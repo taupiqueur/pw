@@ -67,7 +67,7 @@ if !master_password && STDIN.tty?
   STDERR.puts "%.2s••••••" % sha
 end
 
-abort "MASTER_PASSWORD must be set" unless master_password
+abort "ERROR: MASTER_PASSWORD must be set." unless master_password
 
 password = [master_password].concat(ARGV).join(",")
 

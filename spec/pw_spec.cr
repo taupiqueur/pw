@@ -8,7 +8,7 @@ private ENV = { "MASTER_PASSWORD" => MASTER_PASSWORD }
 
 describe "pw" do
   context "without master password" do
-    run_binary(success: false, error: "MASTER_PASSWORD must be set\n")
+    run_binary(success: false, error: "ERROR: MASTER_PASSWORD must be set.\n")
   end
 
   context "with master password from env" do
