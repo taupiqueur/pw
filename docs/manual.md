@@ -12,6 +12,16 @@ pw - A deterministic password generator.
 pw [switches] [--] [arguments]
 ```
 
+## Description
+
+pw is a deterministic password generator.
+
+Create passwords based on your master password with the following method.
+
+```
+master-password,comma,separated,values | SHA-3-512 | Base64
+```
+
 ## Usage
 
 If you don’t have a master password yet:
