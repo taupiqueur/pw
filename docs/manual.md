@@ -19,7 +19,7 @@ pw is a deterministic password generator.
 Create passwords based on your master password with the following method.
 
 ```
-master-password,comma,separated,values | SHA-3-512 | Base64
+base64(sha3_512("master_password,then,comma,separated,values"))
 ```
 
 ## Usage
@@ -125,7 +125,7 @@ If a special character is required, just add an apostropheâ€”for [prime].
 [Prime]: <https://en.wikipedia.org/wiki/Prime_(symbol)#:~:text=Use in mathematics>
 
 On the contrary, if special characters are not allowed, use the `--alphanumeric-only` option
-to drop the `+`, `/` and `=` [characters][Base64 table].
+to drop the `+`, `/` and `=` characters from the [Base64 table].
 
 [Base64 table]: https://en.wikipedia.org/wiki/Base64#Base64_table
 
@@ -134,13 +134,13 @@ The option exists to mitigate the need to tweak your password in a second pipeâ€
 Finally, you might want to specify a version to your password:
 
 ```
-pw --length=10 kanto taupiqueur <version>
+pw --length=10 kanto taupiqueur 2
 ```
 
 <details><summary>OpenSSL command</summary>
 
 ``` sh
-printf 'Strong password,kanto,taupiqueur,<version>' | openssl dgst -binary -sha3-512 | openssl enc -A -base64 | head -c 10
+printf 'Strong password,kanto,taupiqueur,2' | openssl dgst -binary -sha3-512 | openssl enc -A -base64 | head -c 10
 ```
 
 </details>
@@ -155,6 +155,8 @@ Depending on my situation here are the tools I use:
 [Google Password Manager]: https://passwords.google.com
 
 ## Options
+
+The options are as follows:
 
 ###### `-i`
 ###### `--init`

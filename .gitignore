@@ -1,2 +1,4 @@
 bin
 releases
+extra/man/pw.1.gz
+extra/man/pw.1.html

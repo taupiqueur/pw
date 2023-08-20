@@ -1,0 +1,193 @@
+.Dd November 26, 2021
+.Dt PW 1
+.Os
+.Sh NAME
+.Nm pw
+.Nd A deterministic password generator.
+.Sh SYNOPSIS
+.Nm
+.Op Ar switches
+.Op Fl -
+.Op Ar arguments
+.Sh DESCRIPTION
+.Nm
+is a deterministic password generator.
+.Pp
+Create passwords based on your master password with the following method.
+.Bd -literal -offset indent
+base64(sha3_512("master_password,then,comma,separated,values"))
+.Ed
+.Sh USAGE
+If you don’t have a master password yet:
+.Bd -literal -offset indent
+pw --init
+.Ed
+.Pp
+The
+.Xr openssl 1
+equivalent is:
+.Bd -literal -offset indent
+openssl rand -base64 16 | tr -d '\en' | openssl dgst -binary -sha3-512 | openssl enc -A -base64
+.Ed
+.Pp
+Generates 16 random bytes that are encoded into
+.Xr base64 1 ,
+then passed to the password generator.
+.Pp
+.No Set your user— Ns
+.Ql taupiqueur@kanto Ns
+—password:
+.Bd -literal -offset indent
+pw --length=10 kanto taupiqueur
+.Ed
+.Pp
+Sign up Google:
+.Bd -literal -offset indent
+pw --length=10 google.com taupiqueur.kanto
+.Ed
+.Pp
+The
+.Xr openssl 1
+equivalent is:
+.Bd -literal -offset indent
+printf 'Strong password,google.com,taupiqueur.kanto' | openssl dgst -binary -sha3-512 | openssl enc -A -base64 | head -c 10
+.Ed
+.Pp
+Pet name:
+.Bd -literal -offset indent
+pw --length=10 google.com taupiqueur.kanto Bunny
+.Ed
+.Pp
+The
+.Xr openssl 1
+equivalent is:
+.Bd -literal -offset indent
+printf 'Strong password,google.com,taupiqueur.kanto,Bunny' | openssl dgst -binary -sha3-512 | openssl enc -A -base64 | head -c 10
+.Ed
+.Pp
+Sign up Apple:
+.Bd -literal -offset indent
+pw --length=10 apple.com taupiqueur.kanto@gmail.com
+.Ed
+.Pp
+The
+.Xr openssl 1
+equivalent is:
+.Bd -literal -offset indent
+printf 'Strong password,apple.com,taupiqueur.kanto@gmail.com' | openssl dgst -binary -sha3-512 | openssl enc -A -base64 | head -c 10
+.Ed
+.Pp
+Show password before hashing:
+.Bd -literal -offset indent
+pw --show google.com taupiqueur.kanto
+.Ed
+.Pp
+Show password:
+.Bd -literal -offset indent
+Strong password,google.com,taupiqueur.kanto
+.Ed
+.Pp
+The method format is
+.Em comma-separated values ,
+from generic to specific.
+.Pp
+Copy password:
+.Bd -literal -offset indent
+pw --copy google.com taupiqueur.kanto
+.Ed
+.Pp
+Attempt to set the terminal clipboard content using the
+.Xr xterm 1
+escape sequence.
+.Ss Advanced usage
+.Pp
+If a special character is required, just add an apostrophe—for
+.Em prime .
+.Pp
+On the contrary, if special characters are not allowed, use the
+.Fl -alphanumeric-only
+option
+to drop the
+.Ql + ,
+.Ql /
+and
+.Ql =
+characters from the
+.Xr base64 1
+table.
+.Pp
+The option exists to mitigate the need to tweak your password in a second pipe—and probably a third pipe for copying.
+.Pp
+Finally, you might want to specify a version to your password:
+.Bd -literal -offset indent
+pw --length=10 kanto taupiqueur 2
+.Ed
+.Pp
+The
+.Xr openssl 1
+equivalent is:
+.Bd -literal -offset indent
+printf 'Strong password,kanto,taupiqueur,2' | openssl dgst -binary -sha3-512 | openssl enc -A -base64 | head -c 10
+.Ed
+.Ss "In practice?"
+Depending on my situation here are the tools I use:
+.Pp
+.Bl -dash -compact
+.It
+I use
+.Nm
+to create passwords I need to remember and remember one password.
+.It
+I use
+.Sy Google Password Manager
+and the
+.Sy Suggest strong password
+feature for passwords I want to be random.
+.El
+.Sh OPTIONS
+The options are as follows:
+.Bl -tag -width indent
+.It Fl i , Fl -init
+Generate a secure, random password.
+.It Fl l Ar length , Fl -length Ns = Ns Ar length
+Specifies the password length.
+.It Fl a , Fl -alphanumeric-only
+Remove non-alphanumeric characters.
+.It Fl s , Fl -show
+Show password.
+.It Fl c , Fl -copy
+Copy password.
+.Pp
+Attempt to set the terminal clipboard content using the
+.Xr xterm 1
+escape sequence.
+.It Fl
+Read master password from
+.Pa stdin .
+.It Fl r , Fl -rescue
+Rescue mode.
+.Pp
+Print all password methods to date.
+.It Fl h , Fl -help
+Show this help.
+.It Fl v , Fl -version
+Show version.
+.El
+.Sh ENVIRONMENT
+The following environment variables have an effect on
+.Nm .
+.Bl -tag -width indent
+.It Ev MASTER_PASSWORD
+Specifies the master password.
+.El
+.Sh CONTRIBUTING
+.Bl -tag -width indent
+.It Report bugs on the
+.Lk https://github.com/taupiqueur/pw/issues issue tracker ,
+.It ask questions on the
+.Lk https://web.libera.chat/gamja/#taupiqueur IRC channel ,
+.It send patches on the
+.Lk https://github.com/taupiqueur/pw/pulls mailing list .
+.El
+.Sh AUTHORS
+.An Mathieu Ablasou Aq Mt taupiqueur.kanto@gmail.com

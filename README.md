@@ -5,12 +5,8 @@ pw is a deterministic password generator.
 Create passwords based on your master password with the following method.
 
 ```
-master-password,comma,separated,values | SHA-3-512 | Base64
+base64(sha3_512("master_password,then,comma,separated,values"))
 ```
-
-See [Usage] for examples.
-
-[Usage]: docs/manual.md#usage
 
 ## Features
 
