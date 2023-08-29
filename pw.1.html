@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="man-style.css" type="text/css" media="all"/>
+  <title>PW(1)</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">PW(1)</td>
+    <td class="head-vol">General Commands Manual</td>
+    <td class="head-rtitle">PW(1)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp"><code class="Nm">pw</code> &#x2014; <span class="Nd">A
+    deterministic password generator.</span></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<table class="Nm">
+  <tr>
+    <td><code class="Nm">pw</code></td>
+    <td>[<var class="Ar">switches</var>] [<code class="Fl">--</code>]
+      [<var class="Ar">arguments</var>]</td>
+  </tr>
+</table>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp"><code class="Nm">pw</code> is a deterministic password
+  generator.</p>
+<p class="Pp">Create passwords based on your master password with the following
+    method.</p>
+<div class="Bd Pp Bd-indent Li">
+<pre>base64(sha3_512(&quot;master_password,then,comma,separated,values&quot;))</pre>
+</div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="USAGE"><a class="permalink" href="#USAGE">USAGE</a></h1>
+<p class="Pp">If you don&#x2019;t have a master password yet:</p>
+<div class="Bd Pp Bd-indent Li">
+<pre>pw --init</pre>
+</div>
+<p class="Pp">The
+    <a class="Xr" href="https://man.archlinux.org/man/openssl.1">openssl(1)</a>
+    equivalent is:</p>
+<div class="Bd Pp Bd-indent Li">
+<pre>openssl rand -base64 16 | tr -d '\n' | openssl dgst -binary -sha3-512 | openssl enc -A -base64</pre>
+</div>
+<p class="Pp">Generates 16 random bytes that are encoded into
+    <a class="Xr" href="https://man.archlinux.org/man/base64.1">base64(1)</a>,
+    then passed to the password generator.</p>
+<p class="Pp"><span class="No">Set your
+    user&#x2014;</span>&#x2018;<code class="Li">taupiqueur@kanto</code>&#x2019;&#x2014;password:</p>
+<div class="Bd Pp Bd-indent Li">
+<pre>pw --length=10 kanto taupiqueur</pre>
+</div>
+<p class="Pp">Sign up Google:</p>
+<div class="Bd Pp Bd-indent Li">
+<pre>pw --length=10 google.com taupiqueur.kanto</pre>
+</div>
+<p class="Pp">The
+    <a class="Xr" href="https://man.archlinux.org/man/openssl.1">openssl(1)</a>
+    equivalent is:</p>
+<div class="Bd Pp Bd-indent Li">
+<pre>printf 'Strong password,google.com,taupiqueur.kanto' | openssl dgst -binary -sha3-512 | openssl enc -A -base64 | head -c 10</pre>
+</div>
+<p class="Pp">Pet name:</p>
+<div class="Bd Pp Bd-indent Li">
+<pre>pw --length=10 google.com taupiqueur.kanto Bunny</pre>
+</div>
+<p class="Pp">The
+    <a class="Xr" href="https://man.archlinux.org/man/openssl.1">openssl(1)</a>
+    equivalent is:</p>
+<div class="Bd Pp Bd-indent Li">
+<pre>printf 'Strong password,google.com,taupiqueur.kanto,Bunny' | openssl dgst -binary -sha3-512 | openssl enc -A -base64 | head -c 10</pre>
+</div>
+<p class="Pp">Sign up Apple:</p>
+<div class="Bd Pp Bd-indent Li">
+<pre>pw --length=10 apple.com taupiqueur.kanto@gmail.com</pre>
+</div>
+<p class="Pp">The
+    <a class="Xr" href="https://man.archlinux.org/man/openssl.1">openssl(1)</a>
+    equivalent is:</p>
+<div class="Bd Pp Bd-indent Li">
+<pre>printf 'Strong password,apple.com,taupiqueur.kanto@gmail.com' | openssl dgst -binary -sha3-512 | openssl enc -A -base64 | head -c 10</pre>
+</div>
+<p class="Pp">Show password before hashing:</p>
+<div class="Bd Pp Bd-indent Li">
+<pre>pw --show google.com taupiqueur.kanto</pre>
+</div>
+<p class="Pp">Show password:</p>
+<div class="Bd Pp Bd-indent Li">
+<pre>Strong password,google.com,taupiqueur.kanto</pre>
+</div>
+<p class="Pp" id="comma-separated">The method format is
+    <a class="permalink" href="#comma-separated"><i class="Em">comma-separated
+    values</i></a>, from generic to specific.</p>
+<p class="Pp">Copy password:</p>
+<div class="Bd Pp Bd-indent Li">
+<pre>pw --copy google.com taupiqueur.kanto</pre>
+</div>
+<p class="Pp">Attempt to set the terminal clipboard content using the
+    <a class="Xr" href="https://man.archlinux.org/man/xterm.1">xterm(1)</a>
+    escape sequence.</p>
+<section class="Ss">
+<h2 class="Ss" id="Advanced_usage"><a class="permalink" href="#Advanced_usage">Advanced
+  usage</a></h2>
+<p class="Pp">If a special character is required, just add an
+    apostrophe&#x2014;for
+    <a class="permalink" href="#prime"><i class="Em" id="prime">prime</i></a>.</p>
+<p class="Pp">On the contrary, if special characters are not allowed, use the
+    <code class="Fl">--alphanumeric-only</code> option to drop the
+    &#x2018;<code class="Li">+</code>&#x2019;,
+    &#x2018;<code class="Li">/</code>&#x2019; and
+    &#x2018;<code class="Li">=</code>&#x2019; characters from the
+    <a class="Xr" href="https://man.archlinux.org/man/base64.1">base64(1)</a>
+    table.</p>
+<p class="Pp">The option exists to mitigate the need to tweak your password in a
+    second pipe&#x2014;and probably a third pipe for copying.</p>
+<p class="Pp">Finally, you might want to specify a version to your password:</p>
+<div class="Bd Pp Bd-indent Li">
+<pre>pw --length=10 kanto taupiqueur 2</pre>
+</div>
+<p class="Pp">The
+    <a class="Xr" href="https://man.archlinux.org/man/openssl.1">openssl(1)</a>
+    equivalent is:</p>
+<div class="Bd Pp Bd-indent Li">
+<pre>printf 'Strong password,kanto,taupiqueur,2' | openssl dgst -binary -sha3-512 | openssl enc -A -base64 | head -c 10</pre>
+</div>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="In_practice?"><a class="permalink" href="#In_practice?">In
+  practice?</a></h2>
+<p class="Pp">Depending on my situation here are the tools I use:</p>
+<p class="Pp"></p>
+<ul class="Bl-dash Bl-compact">
+  <li>I use <code class="Nm">pw</code> to create passwords I need to remember
+      and remember one password.</li>
+  <li id="Google">I use <a class="permalink" href="#Google"><b class="Sy">Google
+      Password Manager</b></a> and the
+      <a class="permalink" href="#Suggest"><b class="Sy" id="Suggest">Suggest
+      strong password</b></a> feature for passwords I want to be random.</li>
+</ul>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+<p class="Pp">The options are as follows:</p>
+<dl class="Bl-tag">
+  <dt id="i"><a class="permalink" href="#i"><code class="Fl">-i</code></a>,
+    <code class="Fl">--init</code></dt>
+  <dd>Generate a secure, random password.</dd>
+  <dt id="l"><a class="permalink" href="#l"><code class="Fl">-l</code></a>
+    <var class="Ar">length</var>,
+    <code class="Fl">--length</code>=<var class="Ar">length</var></dt>
+  <dd>Specifies the password length.</dd>
+  <dt id="a"><a class="permalink" href="#a"><code class="Fl">-a</code></a>,
+    <code class="Fl">--alphanumeric-only</code></dt>
+  <dd>Remove non-alphanumeric characters.</dd>
+  <dt id="s"><a class="permalink" href="#s"><code class="Fl">-s</code></a>,
+    <code class="Fl">--show</code></dt>
+  <dd>Show password.</dd>
+  <dt id="c"><a class="permalink" href="#c"><code class="Fl">-c</code></a>,
+    <code class="Fl">--copy</code></dt>
+  <dd>Copy password.
+    <p class="Pp">Attempt to set the terminal clipboard content using the
+        <a class="Xr" href="https://man.archlinux.org/man/xterm.1">xterm(1)</a>
+        escape sequence.</p>
+  </dd>
+  <dt><code class="Fl">-</code></dt>
+  <dd>Read master password from <span class="Pa">stdin</span>.</dd>
+  <dt id="r"><a class="permalink" href="#r"><code class="Fl">-r</code></a>,
+    <code class="Fl">--rescue</code></dt>
+  <dd>Rescue mode.
+    <p class="Pp">Print all password methods to date.</p>
+  </dd>
+  <dt id="h"><a class="permalink" href="#h"><code class="Fl">-h</code></a>,
+    <code class="Fl">--help</code></dt>
+  <dd>Show this help.</dd>
+  <dt id="v"><a class="permalink" href="#v"><code class="Fl">-v</code></a>,
+    <code class="Fl">--version</code></dt>
+  <dd>Show version.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ENVIRONMENT"><a class="permalink" href="#ENVIRONMENT">ENVIRONMENT</a></h1>
+<p class="Pp">The following environment variables have an effect on
+    <code class="Nm">pw</code>.</p>
+<dl class="Bl-tag">
+  <dt id="MASTER_PASSWORD"><a class="permalink" href="#MASTER_PASSWORD"><code class="Ev">MASTER_PASSWORD</code></a></dt>
+  <dd>Specifies the master password.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CONTRIBUTING"><a class="permalink" href="#CONTRIBUTING">CONTRIBUTING</a></h1>
+<dl class="Bl-tag">
+  <dt>Report bugs on the</dt>
+  <dd><a class="Lk" href="https://github.com/taupiqueur/pw/issues">issue
+      tracker</a>,</dd>
+  <dt>ask questions on the</dt>
+  <dd><a class="Lk" href="https://web.libera.chat/gamja/#taupiqueur">IRC
+      channel</a>,</dd>
+  <dt>send patches on the</dt>
+  <dd><a class="Lk" href="https://github.com/taupiqueur/pw/pulls">mailing
+      list</a>.</dd>
+</dl>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHORS"><a class="permalink" href="#AUTHORS">AUTHORS</a></h1>
+<p class="Pp"><span class="An">Mathieu Ablasou</span>
+    &lt;<a class="Mt" href="mailto:taupiqueur.kanto@gmail.com">taupiqueur.kanto@gmail.com</a>&gt;</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">November 26, 2021</td>
+    <td class="foot-os"></td>
+  </tr>
+</table>
+</body>
+</html>
