@@ -203,7 +203,7 @@ Print all password methods to date.
 
 Show this help.
 
-###### `-v`
+###### `-V`
 ###### `--version`
 
 Show version.

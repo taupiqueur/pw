@@ -46,7 +46,7 @@ OptionParser.parse do |parser|
     puts parser
     exit
   end
-  parser.on("-v", "--version", "Show version") do
+  parser.on("-V", "--version", "Show version") do
     puts VERSION
     exit
   end

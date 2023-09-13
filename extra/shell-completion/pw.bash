@@ -17,7 +17,7 @@ _pw() {
     "--rescue "
     "-h "
     "--help "
-    "-v "
+    "-V "
     "--version "
   )
   COMPREPLY=(
