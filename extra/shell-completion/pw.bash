@@ -1,7 +1,7 @@
 _pw() {
   local IFS='
 '
-  local WORDLIST=(
+  local OPTION_WORDLIST=(
     "-i "
     "--init "
     "-l "
@@ -24,7 +24,7 @@ _pw() {
     $(
       case "$3,$2" in
         *,-*)
-          compgen -W "${WORDLIST[*]}" -- "$2"
+          compgen -W "${OPTION_WORDLIST[*]}" -- "$2"
           ;;
       esac
     )
