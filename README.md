@@ -43,6 +43,12 @@ See the [manual] for setup and usage instructions.
 
 [Manual]: docs/manual.md
 
+pw is also documented via man pages.
+For a list of available man pages,
+refer to `man -k pw` or [pw(1)].
+
+[pw(1)]: https://taupiqueur.github.io/pw/pw.1.html
+
 ## Contributing
 
 Report bugs on the [issue tracker],
