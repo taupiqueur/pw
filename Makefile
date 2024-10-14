@@ -1,3 +1,5 @@
+PREFIX ?= $(HOME)/.local
+
 # General options
 name = pw
 version = $(shell git describe --tags --always)
@@ -23,15 +25,15 @@ release: clean build
 	tar caf releases/$(name)-$(version)-$(target).tar.xz bin/pw extra/man/pw.1.gz extra/shell-completion/pw.bash extra/shell-completion/pw.zsh extra/shell-completion/pw.fish
 
 install: build
-	install -d ~/.local/bin ~/.local/share/man/man1 ~/.local/share/bash-completion/completions ~/.local/share/zsh/site-functions ~/.local/share/fish/vendor_completions.d
-	install -m 0755 bin/pw ~/.local/bin
-	install -m 0644 extra/man/pw.1.gz ~/.local/share/man/man1
-	install -m 0644 extra/shell-completion/pw.bash ~/.local/share/bash-completion/completions
-	install -m 0644 extra/shell-completion/pw.zsh ~/.local/share/zsh/site-functions/_pw
-	install -m 0644 extra/shell-completion/pw.fish ~/.local/share/fish/vendor_completions.d
+	install -d $(DESTDIR)$(PREFIX)/bin $(DESTDIR)$(PREFIX)/share/man/man1 $(DESTDIR)$(PREFIX)/share/bash-completion/completions $(DESTDIR)$(PREFIX)/share/zsh/site-functions $(DESTDIR)$(PREFIX)/share/fish/vendor_completions.d
+	install -m 0755 bin/pw $(DESTDIR)$(PREFIX)/bin
+	install -m 0644 extra/man/pw.1.gz $(DESTDIR)$(PREFIX)/share/man/man1
+	install -m 0644 extra/shell-completion/pw.bash $(DESTDIR)$(PREFIX)/share/bash-completion/completions
+	install -m 0644 extra/shell-completion/pw.zsh $(DESTDIR)$(PREFIX)/share/zsh/site-functions/_pw
+	install -m 0644 extra/shell-completion/pw.fish $(DESTDIR)$(PREFIX)/share/fish/vendor_completions.d
 
 uninstall:
-	rm -f ~/.local/bin/pw ~/.local/share/man/man1/pw.1.gz ~/.local/share/bash-completion/completions/pw.bash ~/.local/share/zsh/site-functions/_pw ~/.local/share/fish/vendor_completions.d/pw.fish
+	rm -f $(DESTDIR)$(PREFIX)/bin/pw $(DESTDIR)$(PREFIX)/share/man/man1/pw.1.gz $(DESTDIR)$(PREFIX)/share/bash-completion/completions/pw.bash $(DESTDIR)$(PREFIX)/share/zsh/site-functions/_pw $(DESTDIR)$(PREFIX)/share/fish/vendor_completions.d/pw.fish
 
 clean:
 	git clean -d -f -X
