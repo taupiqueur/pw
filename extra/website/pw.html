@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pw</title>
+    <link href="pw.css" rel="stylesheet">
+  </head>
+  <body>
+    <header>
+      <h1>pw</h1>
+    </header>
+    <nav>
+      <ul>
+        <li>
+          <a href="pw.1.html">Manual</a>
+        </li>
+        <li>
+          <a href="https://github.com/taupiqueur/pw">Source</a>
+        </li>
+        <li>
+          <a href="https://github.com/taupiqueur/pw/issues">Issue tracker</a>
+        </li>
+        <li>
+          <a href="https://web.libera.chat/gamja/#taupiqueur">IRC channel</a>
+        </li>
+      </ul>
+    </nav>
+    <main>
+      <p>
+        <strong>pw</strong> is a deterministic password generator that lets you
+        create passwords based on your master password with the following method.
+      </p>
+      <pre><code><span data-type="function">base64</span>(<span data-type="function">sha3_512</span>(<span data-type="string">"master_password,then,comma,separated,values"</span>))
+</code></pre>
+    </main>
+  </body>
+</html>

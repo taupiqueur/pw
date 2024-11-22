@@ -14,9 +14,8 @@ pw [switches] [--] [arguments]
 
 ## Description
 
-pw is a deterministic password generator.
-
-Create passwords based on your master password with the following method.
+pw is a deterministic password generator that lets you
+create passwords based on your master password with the following method.
 
 ```
 base64(sha3_512("master_password,then,comma,separated,values"))
