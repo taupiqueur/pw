@@ -3,7 +3,7 @@ require "option_parser"
 
 require "./io/console"
 
-VERSION = {{ `git describe --tags --always`.chomp.stringify }}
+VERSION = "0.1.0"
 
 class Digest::SHA3_512 < OpenSSL::Digest
   extend ClassMethods
