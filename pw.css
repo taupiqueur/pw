@@ -46,6 +46,11 @@ nav ul {
   padding: 0;
 }
 
+pre {
+  text-wrap: wrap;
+  overflow-wrap: break-word;
+}
+
 [data-type="function"] {
   color: var(--function-color);
 }
