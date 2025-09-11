@@ -22,19 +22,20 @@ test:
 
 release: clean build
 	mkdir -p releases
-	tar caf releases/$(name)-$(version)-$(target).tar.xz bin/pw extra/man/pw.1.gz extra/shell-completion/pw.bash extra/shell-completion/pw.zsh extra/shell-completion/pw.fish extra/shell-completion/pw-completions.nu
+	tar caf releases/$(name)-$(version)-$(target).tar.xz bin/pw extra/man/pw.1.gz extra/shell-completion/pw.bash extra/shell-completion/pw.zsh extra/shell-completion/pw.fish extra/shell-completion/pw-completions.elv extra/shell-completion/pw-completions.nu
 
 install: build
-	install -d $(DESTDIR)$(PREFIX)/bin $(DESTDIR)$(PREFIX)/share/man/man1 $(DESTDIR)$(PREFIX)/share/bash-completion/completions $(DESTDIR)$(PREFIX)/share/zsh/site-functions $(DESTDIR)$(PREFIX)/share/fish/vendor_completions.d $(DESTDIR)$(PREFIX)/share/nushell/vendor/autoload
+	install -d $(DESTDIR)$(PREFIX)/bin $(DESTDIR)$(PREFIX)/share/man/man1 $(DESTDIR)$(PREFIX)/share/bash-completion/completions $(DESTDIR)$(PREFIX)/share/zsh/site-functions $(DESTDIR)$(PREFIX)/share/fish/vendor_completions.d $(DESTDIR)$(PREFIX)/share/elvish/lib $(DESTDIR)$(PREFIX)/share/nushell/vendor/autoload
 	install -m 0755 bin/pw $(DESTDIR)$(PREFIX)/bin
 	install -m 0644 extra/man/pw.1.gz $(DESTDIR)$(PREFIX)/share/man/man1
 	install -m 0644 extra/shell-completion/pw.bash $(DESTDIR)$(PREFIX)/share/bash-completion/completions
 	install -m 0644 extra/shell-completion/pw.zsh $(DESTDIR)$(PREFIX)/share/zsh/site-functions/_pw
 	install -m 0644 extra/shell-completion/pw.fish $(DESTDIR)$(PREFIX)/share/fish/vendor_completions.d
+	install -m 0644 extra/shell-completion/pw-completions.elv $(DESTDIR)$(PREFIX)/share/elvish/lib
 	install -m 0644 extra/shell-completion/pw-completions.nu $(DESTDIR)$(PREFIX)/share/nushell/vendor/autoload
 
 uninstall:
-	rm -f $(DESTDIR)$(PREFIX)/bin/pw $(DESTDIR)$(PREFIX)/share/man/man1/pw.1.gz $(DESTDIR)$(PREFIX)/share/bash-completion/completions/pw.bash $(DESTDIR)$(PREFIX)/share/zsh/site-functions/_pw $(DESTDIR)$(PREFIX)/share/fish/vendor_completions.d/pw.fish $(DESTDIR)$(PREFIX)/share/nushell/vendor/autoload/pw-completions.nu
+	rm -f $(DESTDIR)$(PREFIX)/bin/pw $(DESTDIR)$(PREFIX)/share/man/man1/pw.1.gz $(DESTDIR)$(PREFIX)/share/bash-completion/completions/pw.bash $(DESTDIR)$(PREFIX)/share/zsh/site-functions/_pw $(DESTDIR)$(PREFIX)/share/fish/vendor_completions.d/pw.fish $(DESTDIR)$(PREFIX)/share/elvish/lib/pw-completions.elv $(DESTDIR)$(PREFIX)/share/nushell/vendor/autoload/pw-completions.nu
 
 clean:
 	git clean -d -f -X
