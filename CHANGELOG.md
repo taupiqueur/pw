@@ -1,5 +1,5 @@
 # Changelog
 
-## 2021-11-26
-
-- Initial commit
+Date | Change
+--- | ---
+2021-11-26 | Initial commit
